@@ -1,0 +1,1 @@
+# dependabot-config-parser
