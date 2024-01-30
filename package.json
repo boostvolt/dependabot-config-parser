@@ -1,0 +1,44 @@
+{
+  "type": "module",
+  "name": "dependabot-config-parser",
+  "version": "1.0.0",
+  "description": "",
+  "packageManager": "pnpm@8.9.0",
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "dev": "unbuild --stub",
+    "build": "unbuild",
+    "preinstall": "npx only-allow pnpm",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "dependabot",
+    "config",
+    "parser"
+  ],
+  "author": "Jan Kott (https://github.com/boostvolt)",
+  "dependencies": {
+    "yaml": "2.3.4"
+  },
+  "peerDependencies": {
+    "rollup": "^4"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "prettier": "3.2.4",
+    "rollup": "4.9.6",
+    "typescript": "5.3.3",
+    "unbuild": "2.0.0"
+  },
+  "prettier": {
+    "printWidth": 120
+  }
+}

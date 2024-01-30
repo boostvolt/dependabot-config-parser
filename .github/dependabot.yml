@@ -1,0 +1,81 @@
+version: 2
+
+registries:
+  # Azure NPM Registry
+  azure-npm:
+    type: npm-registry
+    url: https://test-npm.pkg.azure.com/test-npm/
+    username: test
+    password: ${{ secrets.AZURE_PACKAGING_PAT }}
+
+  # Azure Maven Registry
+  azure-maven:
+    type: maven-repository
+    url: https://pkgs.dev.azure.com/test-maven
+    username: SGKB
+    password: ${{ secrets.AZURE_PACKAGING_PAT }}
+
+updates:
+  ## GitHub Actions
+  - package-ecosystem: "github-actions"
+    target-branch: develop
+    directory: "/" # adapt for repository needs
+    schedule:
+      interval: "weekly"
+    groups:
+      github-actions-packages:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "ci: "
+    labels:
+      - "fix"
+
+  # NPM
+  - package-ecosystem: "npm"
+    target-branch: develop
+    registries:
+      - azure-npm
+    directory: "/" # adapt for repository needs
+    schedule:
+      interval: "weekly"
+    groups:
+      npm-packages:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "fix: "
+    labels:
+      - "fix"
+
+  # Gradle
+  - package-ecosystem: "gradle"
+    target-branch: develop
+    registries:
+      - azure-maven
+    directory: "/backend/" # adapt for repository needs
+    schedule:
+      interval: "weekly"
+    groups:
+      gradle-packages:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "fix: "
+    labels:
+      - "fix"
+
+  # Docker
+  - package-ecosystem: "docker"
+    target-branch: develop
+    directory: "/" # adapt for repository needs
+    schedule:
+      interval: "weekly"
+    groups:
+      docker-packages:
+        patterns:
+          - "*"
+    commit-message:
+      prefix: "fix: "
+    labels:
+      - "fix"
